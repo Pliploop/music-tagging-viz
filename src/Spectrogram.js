@@ -2,46 +2,17 @@ import * as THREE from "three";
 import React from "react";
 import song from "./test_song/howtotrain.mp3";
 import * as colors from "./theme/colors";
-import {MdPause, MdStop} from 'react-icons/md'
-import {IoMdPlay} from 'react-icons/io'
-import * as colormap from 'colormap'
+import { MdPause, MdStop } from "react-icons/md";
+import { IoMdPlay } from "react-icons/io";
+import * as colormap from "colormap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-
+import {TiCamera} from 'react-icons/ti'
 
 class Spectrogram extends React.Component {
-  fitCameraToObject(camera, object) {
-    const boundingBox = new THREE.Box3();
-
-    // get bounding box of object - this will be used to setup controls and camera
-    boundingBox.setFromObject(object);
-
-    const center = boundingBox.getCenter();
-
-    const size = boundingBox.getSize();
-
-    // get the max side of the bounding box (fits to width OR height as needed )
-    const maxDim = Math.max(size.x, size.y, size.z);
-    const fov = camera.fov * (Math.PI / 180);
-    let cameraZ = Math.abs((maxDim / 4) * Math.tan(fov * 2));
-
-    cameraZ *= 1; // zoom out a little so that objects don't fill the screen
-
-    camera.position.z = cameraZ;
-
-    const minZ = boundingBox.min.z;
-    const cameraToFarEdge = minZ < 0 ? -minZ + cameraZ : cameraZ - minZ;
-
-    camera.far = cameraToFarEdge * 3;
-    camera.updateProjectionMatrix();
-    camera.lookAt(center);
-  }
-
   componentDidMount() {
     // Basic THREE.js scene and render setup
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(45, 1, 1, 400);
-    this.camera.position.set(160, 120, 110);
-    this.camera.lookAt(70, 0, 0);
     this.nfft = 128;
     this.counter = 0;
 
@@ -51,7 +22,10 @@ class Spectrogram extends React.Component {
     this.renderer.setSize(this.dimension, this.dimension);
     this.mount.appendChild(this.renderer.domElement);
     this.renderer.setClearColor(0xffffff, 0);
-    // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+
+    this.init_controls();
+
+    this.resetcamera();
 
     // THREE.js audio and sound setup
     const listener = new THREE.AudioListener();
@@ -72,25 +46,63 @@ class Spectrogram extends React.Component {
 
     this.last = 0;
     this.count = 0;
-    this.play = false
-    this.pause = true
-    this.stop = false
+    this.play = false;
+    this.pause = true;
+    this.stop = false;
 
     this.mount.addEventListener("click", this.onClick.bind(this), false);
+    this.mount.addEventListener("resize", this.onWindowResize.bind(this), true);
+
+    this.addrepere();
 
     this.animate();
   }
 
+  resetcamera() {
+    this.camera.position.set(160, 115, 110);
+    this.camera.lookAt(0, 0, 0);
+    
+  }
+
+  addrepere() {
+    const material = new THREE.LineBasicMaterial({
+      color: 0x000000,
+      linewidth: 2,
+    });
+
+    const points = [];
+    points.push(new THREE.Vector3(this.nfft / 4, 0, 60));
+    points.push(new THREE.Vector3(-this.nfft / 4, 0, 60));
+    points.push(new THREE.Vector3(-this.nfft / 4, 40, 60));
+    points.push(new THREE.Vector3(-this.nfft / 4, 0, 60));
+    points.push(new THREE.Vector3(-this.nfft / 4, 0, -60));
+
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+    const line = new THREE.Line(geometry, material);
+    this.scene.add(line);
+  }
+
+  init_controls() {
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.maxPolarAngle = Math.PI / 2;
+    this.controls.minPolarAngle = Math.PI / 3;
+    
+    this.controls.enableZoom = false;
+  }
+
   animate(now) {
     this.frameId = requestAnimationFrame(this.animate.bind(this));
+
     this.renderer.render(this.scene, this.camera);
 
     if (!this.last || now - this.last >= 1) {
       this.last = now;
       const data = this.analyser.getFrequencyData();
-      if(this.stop === false)
-      {this.moveLines()};
-      if (this.count % 2 === 1 & this.stop === false) {
+      if (this.stop === false) {
+        this.moveLines();
+      }
+      if ((this.count % 2 === 1) & (this.stop === false)) {
         this.addLine(data);
       }
     }
@@ -98,12 +110,13 @@ class Spectrogram extends React.Component {
   }
 
   addLine(fftValues) {
-    const planeGeometry = new THREE.PlaneGeometry(
+    var planeGeometry = new THREE.PlaneGeometry(
       this.nfft / 2,
       1,
       this.nfft / 2 - 1,
       1
     );
+    planeGeometry.translate(0,0,60)
 
     const plane = new THREE.Mesh(
       planeGeometry,
@@ -113,8 +126,6 @@ class Spectrogram extends React.Component {
         transparent: true,
       })
     );
-
- 
 
     this.lines.add(plane);
 
@@ -141,7 +152,7 @@ class Spectrogram extends React.Component {
 
     // console.log(line.geometry.attributes.position.array)
     for (let i = 0; i < this.nfft / 2; i++) {
-      let y = 0.75 * (fftValues[i] / 6) + 2 * (Math.random() / 2 - 1);
+      let y = 0.75 * (fftValues[i] / 6) + 2 * (Math.random() / 2);
       if (isNaN(y)) {
         y = Math.random.random();
       }
@@ -152,25 +163,24 @@ class Spectrogram extends React.Component {
   }
 
   set_pause() {
-    this.pause = true
-    this.play = false
-    console.log(this.pause)
-    this.sound.pause()
+    this.pause = true;
+    this.play = false;
+    console.log(this.pause);
+    this.sound.pause();
   }
 
   set_play() {
-    this.pause = false
-    this.play = true
-    this.stop = false
-    this.sound.play()
+    this.pause = false;
+    this.play = true;
+    this.stop = false;
+    this.sound.play();
   }
 
-
   set_stop() {
-    this.pause = true
-    this.stop = true
-    this.play = false
-    this.sound.stop()
+    this.pause = true;
+    this.stop = true;
+    this.play = false;
+    this.sound.pause();
   }
 
   moveLines() {
@@ -183,7 +193,7 @@ class Spectrogram extends React.Component {
         }
       }
 
-      if (plane.geometry.attributes.position.array[2] <= -120) {
+      if (plane.geometry.attributes.position.array[2] <= -60) {
         planesThatHaveGoneFarEnough.push(plane);
       } else {
         plane.geometry.attributes.position.needsUpdate = true;
@@ -193,18 +203,26 @@ class Spectrogram extends React.Component {
     planesThatHaveGoneFarEnough.forEach((plane) => this.lines.remove(plane));
   }
 
+  //   onWindowResize() {
+  //     if (this.mount) {
+  //       this.dimension = Math.min(
+  //         window.innerHeight / 1.5,
+  //         window.innerWidth / 1.5
+  //       );
+  //       this.renderer.setSize(this.dimension, this.dimension);
+  //       this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  //     }
+  //   }
+
+  onClick() {}
+
   onWindowResize() {
     if (this.mount) {
-      this.dimension = Math.min(
-        window.innerHeight / 1.5,
-        window.innerWidth / 1.5
-      );
-      this.renderer.setSize(this.dimension, this.dimension);
-      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      this.dimension = Math.min(window.innerHeight, window.innerWidth);
     }
-  }
-
-  onClick() {;
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
   }
 
   componentWillUnmount() {
@@ -220,32 +238,41 @@ class Spectrogram extends React.Component {
 
   render() {
     return (
-      <div className="w-screen h-screen border-2 border-transparent-500">
+      <div className="w-screen h-screen">
         {/* The actaual canvas for three.js */}
-        <div className=" flex flex-row border-2 border-transparent h-1/2 w-1/2 mt-10 ml-24">
-          <div ref={(ref) => (this.mount = ref)} className = 'w-[100%] h-full border-transparent border-solid border-2'/>
+        <div className=" flex flex-row border-2 border-transparent h-1/2 w-1/2 mt-0 ml-24">
+          <div
+            ref={(ref) => (this.mount = ref)}
+            className=" w-[72%] h-[95%] border-transparent border-solid border-2 pt-6"
+          />
 
           <div
-            id="play button" 
-            className="static h-10 w-10 mt-[29%] ml-[-40%]"
+            id="play button"
+            className="static h-10 w-10 mt-[39%] ml-[-23%] "
           >
             <button className="playpausebutton" onClick={() => this.set_play()}>
-                <IoMdPlay/>
+              <IoMdPlay />
             </button>
-
           </div>
-          <div
-            id="pause button"
-            className="static h-10 w-10 mt-[25%] ml-3"
-          >
-            <button className="playpausebutton" onClick={() => this.set_pause()}><MdPause/></button>
+          <div id="pause button" className="static h-10 w-10 mt-[35.5%] ml-3">
+            <button
+              className="playpausebutton"
+              onClick={() => this.set_pause()}
+            >
+              <MdPause />
+            </button>
           </div>
 
-          <div
-            id="stop button"
-            className="static h-10 w-10 mt-[21%] ml-3"
-          >
-            <button className="playpausebutton" onClick={() => this.set_stop()}><MdStop/></button>
+          <div id="stop button" className="static h-10 w-10 mt-[32%] ml-3">
+            <button className="playpausebutton" onClick={() => this.set_stop()}>
+              <MdStop />
+            </button>
+          </div>
+
+          <div id="reset button" className="static h-10 w-10 mt-[28.5%] ml-3">
+            <button className="playpausebutton" onClick={() => this.resetcamera()}>
+              <TiCamera />
+            </button>
           </div>
         </div>
       </div>
