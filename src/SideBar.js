@@ -1,5 +1,5 @@
-import {BsPlus, BsFillLightningFill, BsGearFill, BsPersonFill} from 'react-icons/bs'
-import {FaFire, FaLinkedinIn, FaWodu} from 'react-icons/fa'
+import {BsPersonFill} from 'react-icons/bs'
+import {FaLinkedinIn} from 'react-icons/fa'
 import {AiFillTags} from 'react-icons/ai'
 import {GiDrumKit} from 'react-icons/gi'
 
