@@ -13,7 +13,7 @@ class App extends React.Component {
         <SideBar />
         <div className="h-screen w-screen flex flex-col lg:flex-row">
           
-          <div id = "menu" className=" h-1/2 lg:ml-24 lg:w-[45%]">
+          <div id = "menu" className=" h-1/2 lg:ml-24 lg:w-[60%]">
             <TaggingMenu/>
           </div>
           <div id="spec" className="h-1/2 lg:grow mt-24 lg:mt-0">
