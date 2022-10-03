@@ -10,6 +10,7 @@ class TaggingMenu extends React.Component {
       .addEventListener("change", this.changeHandler);
     this.filehandler = document.getElementById("dropzone-file");
     this.fileloaded = false;
+
   }
 
   changeHandler = ({ target }) => {
@@ -19,14 +20,14 @@ class TaggingMenu extends React.Component {
 
     // Create a blob that we can use as an src for our audio element
     const urlObj = URL.createObjectURL(target.files[0]);
-
+    this.audio = document.getElementById("audioplayer");
+    
     // Create an audio element
-    const audio = document.getElementById("audioplayer");
 
-    audio.addEventListener("load", () => {
+    this.audio.addEventListener("load", () => {
       URL.revokeObjectURL(urlObj);
     });
-    audio.src = urlObj;
+    this.audio.src = urlObj;
     this.fileloaded = this.filehandler.value !== "";
     var name = this.filehandler.value
       .split("\\")
@@ -57,12 +58,12 @@ class TaggingMenu extends React.Component {
           >
             Upload audio
           </label>
-          <div class="flex justify-center items-center w-full">
+          <div className="flex justify-center items-center w-full">
             <label
               htmlFor="dropzone-file"
-              class="flex flex-col justify-center items-center w-full h-26 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 active:bg-gray-200 group"
+              className="flex flex-col justify-center items-center w-full h-26 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 active:bg-gray-200 group"
             >
-              <div class="flex flex-col justify-center items-center pt-5 pb-6">
+              <div className="flex flex-col justify-center items-center pt-5 pb-6">
                 {!this.fileloaded ? (
                   <AiOutlineCloudUpload
                     size={32}
@@ -74,16 +75,16 @@ class TaggingMenu extends React.Component {
                     className="mb-3 text-gray-400 group-active:text-black transition-all duration-75 group-hover:text-emerald-400"
                   />
                 )}
-                <p class="mb-2 text-sm text-gray-300" id="filename"></p>
-                <p class="mb-2 text-md text-gray-500">
-                  <span class="font-semibold">Click to upload</span> or drag and
+                <p className="mb-2 text-sm text-gray-300" id="filename"></p>
+                <p className="mb-2 text-md text-gray-500">
+                  <span className="font-semibold">Click to upload</span> or drag and
                   drop
                 </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   MP3 or WAV
                 </p>
               </div>
-              <input id="dropzone-file" type="file" class="hidden" />
+              <input id="dropzone-file" type="file" className="hidden" />
             </label>
           </div>
 

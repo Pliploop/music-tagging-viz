@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import React from "react";
-import song from "./test_song/howtotrain.mp3";
 import { MdPause, MdStop } from "react-icons/md";
 import { IoMdPlay } from "react-icons/io";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -11,7 +10,6 @@ class Spectrogram extends React.Component {
 
     this.nfft = 128;
     this.counter = 0;
-    this.song = song;
 
     let map = document.getElementById("canvas");
     let mapDimensions = map.getBoundingClientRect();
@@ -40,15 +38,14 @@ class Spectrogram extends React.Component {
     // THREE.js audio and sound setup
     const listener = new THREE.AudioListener();
     this.camera.add(listener);
-    const sound = new THREE.Audio(listener);
-    const audioLoader = new THREE.AudioLoader();
-    audioLoader.load(this.song, function (buffer) {
-      sound.setBuffer(buffer);
-      sound.setLoop(true);
-      sound.setVolume(1);
+    this.sound = new THREE.Audio(listener);
+    this.audioLoader = new THREE.AudioLoader();
+    this.audioLoader.load(this.song, function (buffer) {
+      this.sound.setBuffer(buffer);
+      this.sound.setLoop(false);
+      this.sound.setVolume(1);
     });
-    this.sound = sound;
-    this.analyser = new THREE.AudioAnalyser(sound, this.nfft);
+    this.analyser = new THREE.AudioAnalyser(this.sound, this.nfft);
 
     // Line setup
     this.lines = new THREE.Group();
@@ -67,6 +64,38 @@ class Spectrogram extends React.Component {
     this.addrepere();
 
     this.animate();
+
+
+    document
+      .getElementById("dropzone-file")
+      .addEventListener("change", this.changeHandler);
+    this.filehandler = document.getElementById("dropzone-file");
+    this.fileloaded = false;
+  }
+
+  changeHandler = ({ target }) => {
+    // Make sure we have files to use
+
+    if (!target.files.length) return;
+
+    // Create a blob that we can use as an src for our audio element
+    const urlObj = URL.createObjectURL(target.files[0]);
+    this.audio = document.getElementById("audioplayer");
+    
+    // Create an audio element
+
+    this.audio.addEventListener("load", () => {
+      URL.revokeObjectURL(urlObj);
+    });
+    this.song = urlObj;
+    console.log(this.sound)
+    this.audioLoader.load(this.song, (buffer) => {
+      this.sound.setBuffer(buffer);
+      this.sound.setLoop(false);
+      this.sound.setVolume(1);
+    });  
+
+    this.forceUpdate();
   }
 
   resetcamera() {
@@ -251,7 +280,10 @@ class Spectrogram extends React.Component {
           className=" flex flex-col h-full items-center align-middle"
           id="canvas"
         >
-          <div ref={(ref) => (this.mount = ref)} className="h-[calc(100%-50px)]" />
+          <div
+            ref={(ref) => (this.mount = ref)}
+            className="h-[calc(100%-50px)]"
+          />
           <div className="flex flex-col items-center align-middle w-full mb-[10px]">
             <div className="flex flex-row">
               <div id="play button" className="relative h-10 w-10">

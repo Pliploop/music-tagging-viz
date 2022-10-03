@@ -1,5 +1,7 @@
 import React from "react";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
+import { GiConsoleController } from "react-icons/gi";
+import WaveSurfer from "wavesurfer";
 
 class AudioPlayer extends React.Component {
   componentDidMount() {
@@ -10,6 +12,14 @@ class AudioPlayer extends React.Component {
     this.timebar = document.getElementById("timebar");
     this.timebar.disabled = true;
     this.loaded = false;
+
+    this.wavesurfer = WaveSurfer.create({
+      container: "#waveform",
+      waveColor: "#a7f3d0",
+      progressColor: "#10b981",
+      height: 32,
+      responsive: true,
+    });
 
     document.getElementById("duration").innerHTML = this.pretty_seconds(
       this.audioplayer.duration
@@ -31,8 +41,9 @@ class AudioPlayer extends React.Component {
       if (this.audioplayer.currentTime === 0 && this.timevalue !== 0) {
         this.timevalue = 0;
       }
-      document.getElementById("timebar").value = this.timevalue;
+      this.timebar.value = this.timevalue;
       this.setBackgroundSize();
+      this.wavesurfer.seekTo(this.timevalue / 100);
     };
 
     this.audioplayer.onloadedmetadata = (event) => {
@@ -41,6 +52,15 @@ class AudioPlayer extends React.Component {
       );
       this.timebar.disabled = false;
       this.loaded = true;
+
+
+
+      this.wavesurfer.empty()
+      this.wavesurfer.load(this.audioplayer.src);
+      this.wavesurfer.setVolume(0);
+      this.wavesurfer.drawer.on("click",  (e) => {
+        console.log('has fired');
+      });
     };
   }
 
@@ -78,9 +98,11 @@ class AudioPlayer extends React.Component {
   handlepause = () => {
     this.play = !this.play;
     if (this.play) {
-      document.getElementById("audioplayer").play();
+      this.audioplayer.play();
+      this.wavesurfer.play();
     } else {
-      document.getElementById("audioplayer").pause();
+      this.audioplayer.pause();
+      this.wavesurfer.pause();
     }
     this.forceUpdate();
   };
@@ -91,9 +113,12 @@ class AudioPlayer extends React.Component {
         <audio controls id="audioplayer" className="w-full mt-6 hidden" />
         <div className="grow bg-gray-100 flex flex-col items-center align-middle justify-center mt-6">
           <div className="flex flex-col bg-white ease-linear duration-75 transition-all overflow-hidden w-full group items-center justify-center">
-            <div className="relative p-4 inset-0 flex flex-col justify-end  text-black w-full ">
-              <h3 className="font-bold hover:text-emerald-500" id="songtitle"> </h3>
+            <div className="relative p-4 inset-0 flex flex-col justify-end  text-black w-full">
+              <h3 className="font-bold hover:text-emerald-500 h-10" id="songtitle">
+                 
+              </h3>
             </div>
+            <div id="waveform" className="w-[92.5%] mb-3 mt-[-40px]"></div>
             <input
               type={"range"}
               id="timebar"
@@ -101,7 +126,7 @@ class AudioPlayer extends React.Component {
               step={0.1}
               className="appearance-none  w-[95%] h-1 bg-gray-100 slider-thumb transition-all ease-in duration-100"
               onChange={() => {
-                this.timevalue = document.getElementById("timebar").value;
+                this.timevalue = this.timebar.value;
                 this.audioplayer.currentTime =
                   (this.timevalue * this.audioplayer.duration) / 100;
                 this.setBackgroundSize();
@@ -122,7 +147,7 @@ class AudioPlayer extends React.Component {
                   onClick={() => this.handlepause()}
                 >
                   {!this.play ? (
-                    <BsPlayFill size={28}/>
+                    <BsPlayFill size={28} className="text-black" />
                   ) : (
                     <BsPauseFill size={28} />
                   )}
