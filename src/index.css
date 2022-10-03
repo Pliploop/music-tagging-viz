@@ -20,12 +20,9 @@
 
   .sidebar-tooltip {
     @apply absolute w-14 p-0 min-w-max left-14 
-        rounded-xl
         text-black bg-gradient-to-r from-cyan-500 to-emerald-400
         bg-clip-text
         text-sm
-        break-all
-        border-transparent border-2 border-solid
         transition-all duration-100 scale-0 origin-left
         hover:text-transparent;
   }
@@ -34,6 +31,10 @@
     @apply relative flex align-bottom bg-gradient-to-r from-blue-500 to-emerald-300
     bg-clip-text hover:text-transparent text-xs left-[-600px] mx-6 my-3 group-hover:left-0 transition-all ease-linear duration-100
     hover:cursor-pointer text-gray-300;
+  }
+
+  .sidebar-separator {
+    @apply h-0 mx-5 my-3 border-solid border-gray-200 group-hover:border-emerald-300 border-[1px]
   }
 
   .playpausebutton {

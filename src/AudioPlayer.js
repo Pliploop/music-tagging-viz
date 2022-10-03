@@ -96,7 +96,8 @@ class AudioPlayer extends React.Component {
   };
 
   handlepause = () => {
-    this.play = !this.play;
+    if(this.loaded) {
+    this.play = !this.play};
     if (this.play) {
       this.audioplayer.play();
       this.wavesurfer.play();

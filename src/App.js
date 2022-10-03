@@ -4,16 +4,15 @@ import TaggingMenu from "./TaggingMenu"
 import React from "react";
 
 class App extends React.Component {
+
   
   render() {
-    
-
     return (
       <div>
-        <SideBar />
+        {<SideBar/>}
         <div className="h-screen w-screen flex flex-col lg:flex-row">
           
-          <div id = "menu" className=" h-1/2 lg:ml-24 lg:w-[60%]">
+          <div id = "menu" className=" h-1/2 lg:ml-44 lg:w-[50%]">
             <TaggingMenu/>
           </div>
           <div id="spec" className="h-1/2 lg:grow mt-24 lg:mt-0">
