@@ -58,8 +58,12 @@ class AudioPlayer extends React.Component {
       document.getElementById("duration").innerHTML = this.pretty_seconds(
         this.audioplayer.duration
       );
+      console.log("loaded metadata")
       this.timebar.disabled = false;
       this.loaded = true;
+      this.play = false;
+      
+      this.forceUpdate()
 
 
 
