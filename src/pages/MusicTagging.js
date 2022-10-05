@@ -1,20 +1,14 @@
-import SideBar from "./SideBar";
-import Spectrogram from "./Spectrogram";
-import TaggingMenu from "./TaggingMenu"
+import SideBar from "../components/SideBar";
+import Spectrogram from "../components/Spectrogram";
+import TaggingMenu from "../components/TaggingMenu"
 import React, { useState } from "react";
 
-function HomeSideBar (isHome) {
-  
-  if(isHome.home){return (<></>)} else {return(<SideBar/>)}
-}
 
-function App() {
-    const [isHome,setHome] = useState(false)
+function MusicTagging(isHome) {
     
-
     return (
       <div>
-        <HomeSideBar home={isHome}/>
+        <SideBar/>
         <div className="h-screen w-screen flex flex-col lg:flex-row">
           
           <div id = "menu" className=" h-1/2 lg:ml-44 lg:w-[50%]">
@@ -29,4 +23,4 @@ function App() {
   
 }
 
-export default App;
+export default MusicTagging;

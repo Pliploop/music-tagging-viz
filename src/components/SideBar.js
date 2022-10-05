@@ -9,7 +9,7 @@ import { MdRecordVoiceOver } from 'react-icons/md'
 const SideBar = () => {
     return(
         <div className="fixed top-0 m-0 mb-100 pt-5 h-screen z-30 w-24 flex flex-col text-white bg-white shadow-xl hover:w-64 hover:bg-opacity-100 transition-all duration-200 ease-in-out group bg-opacity-60">
-                <SideBarIcon icon={<FaHome size = '24'/>} text="Home"/>
+                <SideBarIcon icon={<FaHome size = '24'/>} text="Home" link = "."/>
                 <div className='sidebar-separator'></div>
                 <SideBarIcon icon={<AiFillTags size = '24'/>} text="Music auto tagging"/>
                 <SideBarIcon icon={<GiDrumKit size = '24'/>} text = 'Generate drum samples'/>
