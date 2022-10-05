@@ -251,7 +251,6 @@ class Spectrogram extends React.Component {
   onClick() {}
 
   onWindowResize() {
-    console.log(this.camera);
     let map = document.getElementById("canvas");
     let mapDimensions = map.getBoundingClientRect();
     this.width = mapDimensions.width;

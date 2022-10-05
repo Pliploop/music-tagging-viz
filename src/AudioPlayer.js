@@ -1,8 +1,8 @@
 import React from "react";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { GiConsoleController } from "react-icons/gi";
-import WaveSurfer from "wavesurfer";
-
+// import {timeline} from "wavesurfer/plugin/wavesurfer.timeline";
+import WaveSurfer from "wavesurfer"
 class AudioPlayer extends React.Component {
   componentDidMount() {
     this.play = false;
@@ -20,6 +20,7 @@ class AudioPlayer extends React.Component {
       height: 32,
       responsive: true,
     });
+    
 
     document.getElementById("duration").innerHTML = this.pretty_seconds(
       this.audioplayer.duration
@@ -27,6 +28,13 @@ class AudioPlayer extends React.Component {
     document.getElementById("currenttime").innerHTML = this.pretty_seconds(
       this.audioplayer.currentTime
     );
+
+    document.getElementById("audioplayer").addEventListener("ended", () => {
+      this.audioplayer.currentTime = 0
+      this.wavesurfer.pause()
+      this.play = false
+      this.forceUpdate()
+    })
 
     this.audioplayer.ontimeupdate = (event) => {
       document.getElementById("currenttime").innerHTML = this.pretty_seconds(
@@ -96,6 +104,7 @@ class AudioPlayer extends React.Component {
   };
 
   handlepause = () => {
+    console.log('handlepause')
     if(this.loaded) {
     this.play = !this.play};
     if (this.play) {
@@ -119,6 +128,7 @@ class AudioPlayer extends React.Component {
                  
               </h3>
             </div>
+            <div id= "timeline" className="w-[92.5%] mb-3"></div>
             <div id="waveform" className="w-[92.5%] mb-3 mt-[-40px]"></div>
             <input
               type={"range"}

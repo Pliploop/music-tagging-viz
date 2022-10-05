@@ -1,15 +1,20 @@
 import SideBar from "./SideBar";
 import Spectrogram from "./Spectrogram";
 import TaggingMenu from "./TaggingMenu"
-import React from "react";
+import React, { useState } from "react";
 
-class App extends React.Component {
-
+function HomeSideBar (isHome) {
   
-  render() {
+  if(isHome.home){return (<></>)} else {return(<SideBar/>)}
+}
+
+function App() {
+    const [isHome,setHome] = useState(false)
+    
+
     return (
       <div>
-        {<SideBar/>}
+        <HomeSideBar home={isHome}/>
         <div className="h-screen w-screen flex flex-col lg:flex-row">
           
           <div id = "menu" className=" h-1/2 lg:ml-44 lg:w-[50%]">
@@ -21,7 +26,7 @@ class App extends React.Component {
         </div>
       </div>
     );
-  }
+  
 }
 
 export default App;
