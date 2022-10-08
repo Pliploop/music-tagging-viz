@@ -34,7 +34,7 @@
   }
 
   .sidebar-separator {
-    @apply h-0 mx-5 my-3 border-solid border-gray-200 group-hover:border-emerald-300 border-[1px]
+    @apply h-0 mx-5 my-3 border-solid border-gray-200 group-hover:border-emerald-300 border-[1px];
   }
 
   .playpausebutton {
@@ -113,4 +113,66 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 50%;
   margin-top: -6px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.blur-box {
+  background-color: transparent;
+  box-shadow: 0 0 5px 10px transparent;
+}
+
+.home-bg {
+  background-color: hsla(0, 0%, 100%, 1);
+  background-image: radial-gradient(
+      at 66% 35%,
+      hsla(25, 0%, 100%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 100% 0%, hsla(189, 100%, 56%, 0.55) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(354, 0%, 100%, 1) 0px, transparent 50%),
+    radial-gradient(at 94% 16%, hsla(178, 100%, 87%, 1) 0px, transparent 50%),
+    radial-gradient(at 5% 85%, hsla(210, 100%, 78%, 0.77) 0px, transparent 50%),
+    radial-gradient(at 78% 51%, hsla(240, 0%, 100%, 1) 0px, transparent 50%),
+    radial-gradient(at 21% 65%, hsla(200, 26%, 52%, 1) 0px, transparent 50%);
+}
+
+@font-face {
+  font-family: 'Yeseva';
+  src: local('YesevaOne-Regular'), url(../fonts/YesevaOne-Regular.ttf) format('truetype');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
+
+.homeheading {
+  font-family: Yeseva;
+  font-size: 65px;
+}
+
+.homeabout {
+  font-family: Yeseva;
+  font-size: 35px;
+}
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+}
+
+.hover-underline-animation:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: 2px;
+  left: 0;
+  top: 20px;
+  background-color: #0087ca;
+  transform-origin: bottom right;
+  transition: transform 0.15s ease-out;
+}
+
+.hover-parent:hover .hover-underline-animation:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+  
 }
