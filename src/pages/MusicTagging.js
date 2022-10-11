@@ -1,7 +1,7 @@
 import SideBar from "../components/SideBar";
 import Spectrogram from "../components/Spectrogram";
 import TaggingMenu from "../components/TaggingMenu"
-import React, { useState } from "react";
+import React from "react";
 
 
 function MusicTagging(isHome) {

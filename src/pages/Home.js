@@ -1,13 +1,12 @@
 import React from "react";
 import Spline from "@splinetool/react-spline";
-import { BsGlobe, BsTag } from "react-icons/bs";
+import { BsGlobe } from "react-icons/bs";
 import { RiLinkedinFill } from "react-icons/ri";
 import { VscGithub } from "react-icons/vsc";
-import {AiFillTags} from 'react-icons/ai'
-import {GiDrumKit} from 'react-icons/gi'
-import { GiDoubled } from 'react-icons/gi'
-import { MdRecordVoiceOver } from 'react-icons/md'
-
+import { AiFillTags } from "react-icons/ai";
+import { GiDrumKit } from "react-icons/gi";
+import { GiDoubled } from "react-icons/gi";
+import { MdRecordVoiceOver } from "react-icons/md";
 
 function Home() {
   return (
@@ -32,16 +31,19 @@ function Home() {
             link={"music-tagging"}
             icon={<GiDrumKit size={20} />}
             text="Drum sample generation"
+            WIP={true}
           />
           <PageLink
             link={"music-tagging"}
             icon={<GiDoubled size={20} />}
             text="Voice cloning"
+            WIP={true}
           />
           <PageLink
             link={"music-tagging"}
             icon={<MdRecordVoiceOver size={20} />}
             text="Vocal register detection"
+            WIP={true}
           />
         </div>
         <div className="h-auto grow flex flex-row align-middle">
@@ -56,14 +58,12 @@ function Home() {
             information retrieval - a field of Artificial intelligence which
             deals with musical audio - and my desire to learn more about web
             development.
-            <br/>
-            <br/>
-            The goal was to challenge myself with building a full
-            website from scratch, including design, front-end and back-end
-            development while implementing state of the art machine learning
-            models to build what essentially is an AI playground to have fun
-            with music.
-            
+            <br />
+            <br />
+            The goal was to challenge myself with building a full website from
+            scratch, including design, front-end and back-end development while
+            implementing state of the art machine learning models to build what
+            essentially is an AI playground to have fun with music.
             <br />
             <br />
             <br />
@@ -103,9 +103,14 @@ function Home() {
 
 const HomeLink = ({ text, link, icon }) => {
   return (
-    <a href={link} className="flex p-2 flex-row align-middle rounded-full group transition-all ease-linear hover:shadow-md duration-75 border-[1px]
-    border-transparent hover:border-sky-300 hover:scale-[101%] hover:shadow-gray-400  hover: cursor-pointer hover-parent hover:bg-white hover:bg-opacity-10">
-      <div className="mr-3 text-sky-600 group-hover:text-sky-800 transition-all duration-100 rounded-full group-hover:shadow-md p-4 group-hover:bg-white group-hover:bg-opacity-10">{icon}</div>
+    <a
+      href={link}
+      className="flex p-2 flex-row align-middle rounded-full group transition-all ease-linear hover:shadow-md duration-75 border-[1px]
+    border-transparent hover:border-sky-300 hover:scale-[101%] hover:shadow-gray-400  hover: cursor-pointer hover-parent hover:bg-white hover:bg-opacity-10"
+    >
+      <div className="mr-3 text-sky-600 group-hover:text-sky-800 transition-all duration-100 rounded-full group-hover:shadow-md p-4 group-hover:bg-white group-hover:bg-opacity-10">
+        {icon}
+      </div>
       <span className="self-center font-mono text-sm hover-underline-animation group-hover:text-[#0087ca] mr-6">
         {text}
       </span>
@@ -113,17 +118,37 @@ const HomeLink = ({ text, link, icon }) => {
   );
 };
 
-const PageLink = ({ text, description = null, link, icon }) => {
-  return (
-    <a href ={link} className="flex p-2 flex-row align-middle rounded-full group transition-transform ease-linear duration-75 active:scale-90 active:duration-[30ms]
-    border-transparent border-black hover:border-sky-700 border-[1px] border-b-4 hover:scale-[101%]  hover: cursor-pointer hover-parent hover:bg-white hover:bg-opacity-10">
-      <div className="mr-3 text-black group-hover:text-sky-700 transition-all duration-100 rounded-full p-4 group-hover:bg-white group-hover:bg-opacity-10">{icon}</div>
-      <span className="self-center font-mono text-sm hover-underline-animation group-hover:text-[#0087ca] mr-6">
-        {text}
-      </span>
-      <span>{description}</span>
-    </a>
-  );
+const PageLink = ({ text, description = null, link, icon, WIP = false }) => {
+  if (!WIP) {
+    return (
+      <a
+        href={link}
+        className="flex p-2 flex-row align-middle rounded-full group transition-transform ease-linear duration-75 active:scale-90 active:duration-[30ms]
+    border-transparent border-black hover:border-sky-700 border-[1px] border-b-4 hover:scale-[101%]  hover: cursor-pointer hover-parent hover:bg-white hover:bg-opacity-10"
+      >
+        <div className="mr-3 text-black group-hover:text-sky-700 transition-all duration-100 rounded-full p-4 group-hover:bg-white group-hover:bg-opacity-10">
+          {icon}
+        </div>
+        <span className="self-center font-mono text-sm hover-underline-animation group-hover:text-[#0087ca] mr-6">
+          {text}
+        </span>
+        <span>{description}</span>
+      </a>
+    );
+  } else {
+    return (
+      <div
+        className="flex p-2 flex-row align-middle rounded-full group transition-transform ease-linear duration-75 active:scale-90 active:duration-[30ms]
+    border-transparent border-gray-400 hover:border-gray-500 border-[1px] border-b-4 bg-gray-300 bg-opacity-25"
+      >
+        <div className="mr-3 text-gray-400 rounded-full p-4">{icon}</div>
+        <span className="self-center font-mono text-sm mr-6 text-gray-400 cursor-default">
+          {text}
+        </span>
+        <span>{description}</span>
+      </div>
+    );
+  }
 };
 
 export default Home;

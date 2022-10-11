@@ -1,7 +1,5 @@
 import React from "react";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
-import { GiConsoleController } from "react-icons/gi";
-// import {timeline} from "wavesurfer/plugin/wavesurfer.timeline";
 import WaveSurfer from "wavesurfer"
 class AudioPlayer extends React.Component {
   componentDidMount() {
