@@ -1,5 +1,4 @@
-import React from "react";
-import Spline from "@splinetool/react-spline";
+import React, { Suspense, useState, useEffect } from "react";
 import { BsGlobe } from "react-icons/bs";
 import { RiLinkedinFill } from "react-icons/ri";
 import { VscGithub } from "react-icons/vsc";
@@ -7,10 +6,12 @@ import { AiFillTags } from "react-icons/ai";
 import { GiDrumKit } from "react-icons/gi";
 import { GiDoubled } from "react-icons/gi";
 import { MdRecordVoiceOver } from "react-icons/md";
+import Canvas from "../components/Canvas";
+import Spline from "@splinetool/react-spline";
 
 function Home() {
   return (
-    <div className="h-screen w-screen flex lg:flex-row flex-col content-evenly justify-evenly home-bg">
+    <div className="h-auto min-h-screen w-screen flex lg:flex-row flex-col content-evenly justify-evenly home-bg">
       <div className="flex flex-col h-full lg:w-[55%] content-between p-20 pb-14">
         <div className="w-full  h-auto mb-14">
           <h1 className="homeheading bg-gradient-to-r from-sky-600 to-blue-400 bg-clip-text text-transparent drop-shadow-sm">
@@ -71,7 +72,7 @@ function Home() {
             out:
           </span>
           <div className="grow w-1/3">
-            <Spline scene="https://prod.spline.design/zaPUC-L2q6DvYj05/scene.splinecode" />
+          <Spline scene="https://prod.spline.design/zaPUC-L2q6DvYj05/scene.splinecode" />
           </div>
         </div>
 
@@ -95,7 +96,7 @@ function Home() {
       </div>
 
       <div className="grow h-auto px-20">
-        <Spline scene="https://prod.spline.design/LCM5DGZIdXwyGffV/scene.splinecode" />
+      <Spline scene="https://prod.spline.design/LCM5DGZIdXwyGffV/scene.splinecode" />
       </div>
     </div>
   );
