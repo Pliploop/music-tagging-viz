@@ -11,18 +11,18 @@ import Spline from "@splinetool/react-spline";
 
 function Home() {
   return (
-    <div className="h-auto min-h-screen w-screen flex lg:flex-row flex-col content-evenly justify-evenly home-bg">
-      <div className="flex flex-col h-full lg:w-[55%] content-between p-20 pb-14">
+    <div className="h-auto min-h-screen w-screen flex 2xl:flex-row flex-col content-evenly justify-evenly home-bg">
+      <div className="flex flex-col h-full w-full 2xl:w-[55%] content-between md:p-20 p-6 md:pb-14">
         <div className="w-full  h-auto mb-14">
-          <h1 className="homeheading bg-gradient-to-r from-sky-600 to-blue-400 bg-clip-text text-transparent drop-shadow-sm">
+          <h1 className="homeheading bg-gradient-to-r from-sky-600 to-blue-400 bg-clip-text lg:text-[65px] text-[40px] text-transparent drop-shadow-sm">
             The Music Playground
           </h1>
-          <span className="w-[80%] text-lg font-mono text-gray-800">
+          <span className="w-[80%] lg:text-lg text-md font-mono text-gray-800">
             Music is fun to play with, especially with machine learning. Try out
             various AI algorithms on your favorite audio clips and music!{" "}
           </span>
         </div>
-        <div className="h-full grow content-evenly justify-evenly mb-10 grid grid-cols-2 gap-12  ">
+        <div className="h-full grow content-evenly justify-evenly mb-10 sm:grid sm:grid-cols-2 flex flex-col sm:gap-12 gap-3  ">
           <PageLink
             link={"music-tagging"}
             icon={<AiFillTags size={20} />}
@@ -76,7 +76,7 @@ function Home() {
           </div> */}
         </div>
 
-        <div className="flex flex-row items-center justify-evenly py-1">
+        <div className="flex md:flex-row flex-col items-center justify-evenly py-1">
           <HomeLink
             icon={<BsGlobe size={20} />}
             link="https://www.julienguinot.com"
@@ -95,8 +95,8 @@ function Home() {
         </div>
       </div>
 
-      <div className="grow h-auto px-20">
-      <Spline scene="https://prod.spline.design/LCM5DGZIdXwyGffV/scene.splinecode" />
+      <div className="grow h-auto lg:px-20 md:visible invisible">
+      <Spline scene="https://prod.spline.design/LCM5DGZIdXwyGffV/scene.splinecode"/>
       </div>
     </div>
   );
