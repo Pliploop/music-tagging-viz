@@ -53,8 +53,8 @@ function Home() {
           </h2>
           <div className="h-[2px] w-full self-center ml-10 bg-gradient-to-r from-blue-500 to-sky-400 shadow-lg"></div>
         </div>
-        <div className="flex flex-row mb-3">
-          <span className="font-mono text-xs w-2/3 pt-8 text-justify">
+        <div className="flex flex-row mb-6">
+          <span className="font-mono text-xs w-full pt-8 text-justify">
             This project was born out of my passion for music and music
             information retrieval - a field of Artificial intelligence which
             deals with musical audio - and my desire to learn more about web
@@ -71,25 +71,25 @@ function Home() {
             If you want to learn more about my other projects, you can check
             out:
           </span>
-          <div className="grow w-1/3">
+          {/* <div className="grow w-1/3">
           <Spline scene="https://prod.spline.design/zaPUC-L2q6DvYj05/scene.splinecode" />
-          </div>
+          </div> */}
         </div>
 
         <div className="flex flex-row items-center justify-evenly py-1">
           <HomeLink
             icon={<BsGlobe size={20} />}
-            link="www.julienguinot.com"
+            link="https://www.julienguinot.com"
             text="My website"
           />
           <HomeLink
             icon={<RiLinkedinFill size={20} />}
-            link="www.linkedin.com/in/julien-guinot"
+            link="https://www.linkedin.com/in/julien-guinot"
             text="My Linkedin"
           />
           <HomeLink
             icon={<VscGithub size={20} />}
-            link="www.github.com/Pliploop"
+            link="https://www.github.com/Pliploop"
             text="My Github"
           />
         </div>
