@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from "react";
+import React from "react";
 import { BsGlobe } from "react-icons/bs";
 import { RiLinkedinFill } from "react-icons/ri";
 import { VscGithub } from "react-icons/vsc";
@@ -6,7 +6,6 @@ import { AiFillTags } from "react-icons/ai";
 import { GiDrumKit } from "react-icons/gi";
 import { GiDoubled } from "react-icons/gi";
 import { MdRecordVoiceOver } from "react-icons/md";
-import Canvas from "../components/Canvas";
 import Spline from "@splinetool/react-spline";
 
 function Home() {

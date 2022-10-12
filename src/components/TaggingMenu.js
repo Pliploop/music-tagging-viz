@@ -47,7 +47,7 @@ class TaggingMenu extends React.Component {
             className="mr-5 text-emerald-500 group-hover:scale-[105%] transition-all ease-linear duration-75"
           />
           <span className=" bg-gradient-to-r from-emerald-500 to-sky-500 text-transparent bg-clip-text text-left font-extrabold text-3xl">
-            Yo tag your shit
+            Tag your music!
           </span>
         </div>
         <div className="w-full h-0.5 mt-5 bg-gradient-to-r from-emerald-500 to-sky-500 opacity-50"></div>
