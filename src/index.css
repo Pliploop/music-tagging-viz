@@ -68,7 +68,7 @@
   }
 
   .slider-thumb::-webkit-slider-runnable-track {
-    @apply h-[3px] bg-gradient-to-r from-emerald-500 to-transparent rounded-full;
+    @apply h-[3px] bg-gradient-to-r from-emerald-500 to-white rounded-full bg-white;
   }
 
   .slider-thumb::-webkit-slider-thumb {
@@ -136,15 +136,15 @@ input[type="range"]::-moz-range-thumb {
 }
 
 @font-face {
-  font-family: 'Yeseva';
-  src: local('YesevaOne-Regular'), url(../fonts/YesevaOne-Regular.ttf) format('truetype');
+  font-family: "Yeseva";
+  src: local("YesevaOne-Regular"),
+    url(../fonts/YesevaOne-Regular.ttf) format("truetype");
   /* other formats include: 'woff2', 'truetype, 'opentype',
                             'embedded-opentype', and 'svg' */
 }
 
 .homeheading {
   font-family: Yeseva;
-  
 }
 
 .homeabout {
@@ -158,7 +158,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .hover-underline-animation:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   transform: scaleX(0);
@@ -174,5 +174,19 @@ input[type="range"]::-moz-range-thumb {
 .hover-parent:hover .hover-underline-animation:after {
   transform: scaleX(1);
   transform-origin: bottom left;
-  
+}
+
+.mtag-bg {
+  background-color: hsla(0, 12%, 98%, 1);
+  background-image: radial-gradient(
+      at 3% 3%,
+      hsla(122, 100%, 75%, 0) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 75% 25%, hsla(187, 0%, 100%, 1) 0px, transparent 50%),
+    radial-gradient(at 17% 71%, hsla(355, 0%, 100%, 1) 0px, transparent 50%),
+    radial-gradient(at 99% 2%, hsla(231, 100%, 50%, 0.33) 0px, transparent 50%),
+    radial-gradient(at 0% 0%, hsla(8, 0%, 100%, 1) 0px, transparent 50%),
+    radial-gradient(at 56% 99%, hsla(187, 100%, 70%, 1) 0px, transparent 50%),
+    radial-gradient(at 1% 99%, hsla(184, 100%, 65%, 0.83) 0px, transparent 50%);
 }

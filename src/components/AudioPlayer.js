@@ -18,6 +18,8 @@ class AudioPlayer extends React.Component {
       height: 32,
       responsive: true,
     });
+
+    window.addEventListener('resize', () => {this.wavesurfer.drawer.fireEvent('redraw')})
     
 
     document.getElementById("duration").innerHTML = this.pretty_seconds(
@@ -71,8 +73,11 @@ class AudioPlayer extends React.Component {
       this.wavesurfer.drawer.on("click",  (e) => {
         console.log('has fired');
       });
+      
     };
   }
+
+  
 
   str_pad_left = (string, pad, length) => {
     return (new Array(length + 1).join(pad) + string).slice(-length);
@@ -123,10 +128,10 @@ class AudioPlayer extends React.Component {
     return (
       <>
         <audio controls id="audioplayer" className="w-full mt-6 hidden" />
-        <div className="grow bg-gray-100 flex flex-col items-center align-middle justify-center mt-6">
-          <div className="flex flex-col bg-white ease-linear duration-75 transition-all overflow-hidden w-full group items-center justify-center">
+        <div className="grow bg-transparent flex flex-col items-center align-middle justify-center mt-6">
+          <div className="flex flex-col bg-transparent ease-linear duration-75 transition-all overflow-hidden w-full group items-center justify-center">
             <div className="relative p-4 inset-0 flex flex-col justify-end  text-black w-full">
-              <h3 className="font-bold hover:text-emerald-500 h-10" id="songtitle">
+              <h3 className="font-bold hover:text-emerald-500 h-10 mb-3" id="songtitle">
                  
               </h3>
             </div>
@@ -152,7 +157,7 @@ class AudioPlayer extends React.Component {
               <div className="flex">
                 <button
                   className={
-                    "rounded-full w-10 h-10 flex items-center justify-center  hover:bg-gray-100 active:bg-gray-200 active:text-emerald-500 active:scale-90 transition-all ease-in-out duration-[10ms]" +
+                    "rounded-full w-10 h-10 flex items-center justify-center bg-white hover:bg-gray-100 active:bg-gray-200 active:text-emerald-500 active:scale-90 transition-all ease-in-out duration-[10ms]" +
                     (!this.play
                       ? "text-blue-500 shadow-md hover:shadow-lg"
                       : "shadow-none text-emerald-500")

@@ -9,7 +9,7 @@ function MusicTagging(isHome) {
     return (
       <div>
         <SideBar/>
-        <div className="h-screen w-screen flex flex-col lg:flex-row">
+        <div className="h-screen w-screen flex flex-col lg:flex-row mtag-bg">
           
           <div id = "menu" className=" h-1/2 lg:ml-44 lg:w-[50%]">
             <TaggingMenu/>

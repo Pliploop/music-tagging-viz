@@ -61,7 +61,7 @@ class TaggingMenu extends React.Component {
           <div className="flex justify-center items-center w-full">
             <label
               htmlFor="dropzone-file"
-              className="flex flex-col justify-center items-center w-full h-26 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 active:bg-gray-200 group"
+              className="flex flex-col justify-center items-center w-full h-26 bg-gray-50 bg-opacity-20 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 hover:bg-opacity-50 active:bg-gray-200 group"
             >
               <div className="flex flex-col justify-center items-center pt-5 pb-6">
                 {!this.fileloaded ? (
@@ -75,7 +75,7 @@ class TaggingMenu extends React.Component {
                     className="mb-3 text-gray-400 group-active:text-black transition-all duration-75 group-hover:text-emerald-400"
                   />
                 )}
-                <p className="mb-2 text-sm text-gray-300" id="filename"></p>
+                <p className="mb-2 text-sm text-gray-400" id="filename"></p>
                 <p className="mb-2 text-md text-gray-500">
                   <span className="font-semibold">Click to upload</span> or drag and
                   drop
